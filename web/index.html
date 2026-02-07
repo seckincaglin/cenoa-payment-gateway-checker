@@ -566,7 +566,7 @@
         let gatewayData = null;
         
         // Load gateway data
-        fetch('../data/gateway-data.json')
+        fetch('gateway-data.json')
             .then(response => response.json())
             .then(data => {
                 gatewayData = data.gateways;

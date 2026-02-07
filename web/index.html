@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway Cost Checker | Cenoa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e8e8e8;
+            border-radius: 12px;
+            font-size: 16px;
+            color: #333;
+            background: #fafafa;
+            transition: all 0.2s;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
+            padding-right: 44px;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .results {
+            display: none;
+        }
+
+        .results.show {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .gateway-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 2px solid #e8e8e8;
+        }
+
+        .gateway-card.available {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .gateway-card.restricted {
+            border-color: #f59e0b;
+            background: #fffbeb;
+        }
+
+        .gateway-card.blocked {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .gateway-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .gateway-name {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-available {
+            background: #10b981;
+            color: white;
+        }
+
+        .status-restricted {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .status-blocked {
+            background: #ef4444;
+            color: white;
+        }
+
+        .cost-display {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin: 12px 0;
+        }
+
+        .cost-breakdown {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .savings {
+            background: #10b981;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        .restriction-note {
+            background: rgba(239, 68, 68, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #dc2626;
+            margin-top: 12px;
+        }
+
+        .warning-note {
+            background: rgba(245, 158, 11, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #d97706;
+            margin-top: 12px;
+        }
+
+        .powered-by {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .powered-by a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .summary h2 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .summary .big-number {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 16px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <span class="logo-text">💰 Cenoa</span>
+            </div>
+            <h1>Payment Gateway Cost Checker</h1>
+            <p class="subtitle">Find out which gateways work in your country and how much they really cost</p>
+
+            <form id="checker-form">
+                <div class="form-group">
+                    <label>Your Country</label>
+                    <select id="country" required>
+                        <option value="">Select your country...</option>
+                        <option value="pakistan">🇵🇰 Pakistan</option>
+                        <option value="nigeria">🇳🇬 Nigeria</option>
+                        <option value="egypt">🇪🇬 Egypt</option>
+                        <option value="turkey">🇹🇷 Turkey</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Monthly USD Earnings</label>
+                    <input type="number" id="earnings" placeholder="e.g., 3000" min="100" step="100" required>
+                </div>
+
+                <button type="submit">Check Gateways & Costs 🔍</button>
+            </form>
+        </div>
+
+        <div class="results" id="results">
+            <div class="summary">
+                <h2>You're Losing</h2>
+                <div class="big-number" id="loss-amount">$0</div>
+                <p>per year to payment gateway fees</p>
+            </div>
+
+            <div id="gateway-list"></div>
+        </div>
+
+        <div class="powered-by">
+            Powered by <a href="https://cenoa.com" target="_blank">Cenoa</a> · The smart way to get paid 🌍
+        </div>
+    </div>
+
+    <script>
+        // Gateway data will be loaded here
+        const gatewayData = null; // Will be populated from JSON file
+        
+        document.getElementById('checker-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            checkGateways();
+        });
+
+        function checkGateways() {
+            const country = document.getElementById('country').value;
+            const earnings = parseFloat(document.getElementById('earnings').value);
+            
+            if (!country || !earnings) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Show results
+            document.getElementById('results').classList.add('show');
+            
+            // Calculate and display
+            displayResults(country, earnings);
+            
+            // Scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function displayResults(country, monthlyEarnings) {
+            const annualEarnings = monthlyEarnings * 12;
+            
+            // Gateway order: Cenoa first, then available, then restricted, then blocked
+            const gateways = ['cenoa', 'payoneer', 'wise', 'paypal', 'airwallex', 'worldfirst', 'mercury'];
+            
+            const gatewayList = document.getElementById('gateway-list');
+            gatewayList.innerHTML = '';
+            
+            let minCost = Infinity;
+            let cenoaCost = 0;
+            
+            gateways.forEach(gateway => {
+                const card = createGatewayCard(gateway, country, annualEarnings);
+                if (card) {
+                    gatewayList.appendChild(card);
+                    
+                    // Track costs for summary
+                    const cost = calculateCost(gateway, country, annualEarnings);
+                    if (cost !== null && cost < minCost) {
+                        minCost = cost;
+                    }
+                    if (gateway === 'cenoa') {
+                        cenoaCost = cost;
+                    }
+                }
+            });
+            
+            // Update loss amount
+            // For now, show approximate loss with Payoneer
+            const payoneerCost = annualEarnings * 0.085;
+            const loss = payoneerCost - cenoaCost;
+            document.getElementById('loss-amount').textContent = `$${Math.round(loss).toLocaleString()}`;
+        }
+
+        function createGatewayCard(gateway, country, annualEarnings) {
+            const data = getGatewayData(gateway, country);
+            if (!data) return null;
+            
+            const card = document.createElement('div');
+            card.className = 'card gateway-card';
+            
+            if (data.available === true) {
+                card.classList.add('available');
+            } else if (data.available === 'limited') {
+                card.classList.add('restricted');
+            } else {
+                card.classList.add('blocked');
+            }
+            
+            let statusBadge = '';
+            if (data.available === true) {
+                statusBadge = '<span class="status-badge status-available">✅ Available</span>';
+            } else if (data.available === 'limited') {
+                statusBadge = '<span class="status-badge status-restricted">⚠️ Limited</span>';
+            } else {
+                statusBadge = '<span class="status-badge status-blocked">❌ Blocked</span>';
+            }
+            
+            let content = `
+                <div class="gateway-header">
+                    <div class="gateway-name">${data.name}</div>
+                    ${statusBadge}
+                </div>
+            `;
+            
+            if (data.available === true && data.fees) {
+                const monthlyCost = (annualEarnings / 12) * data.fees.total;
+                const annualCost = annualEarnings * data.fees.total;
+                
+                content += `
+                    <div class="cost-display">$${Math.round(monthlyCost)}/month</div>
+                    <div class="cost-breakdown">
+                        ${(data.fees.total * 100).toFixed(2)}% total fees · $${Math.round(annualCost).toLocaleString()}/year
+                    </div>
+                `;
+                
+                if (gateway !== 'cenoa') {
+                    const cenoaCost = annualEarnings * 0.01;
+                    const savings = annualCost - cenoaCost;
+                    if (savings > 0) {
+                        content += `
+                            <div class="savings">
+                                💰 Switch to Cenoa = Save $${Math.round(savings).toLocaleString()}/year
+                            </div>
+                        `;
+                    }
+                }
+                
+                if (data.warning) {
+                    content += `
+                        <div class="warning-note">
+                            ⚠️ ${data.warning}
+                        </div>
+                    `;
+                }
+            } else if (data.available === 'limited') {
+                content += `
+                    <div class="warning-note">
+                        ⚠️ ${data.restriction || 'Limited availability'}
+                        ${data.details ? `<br><br>${data.details}` : ''}
+                    </div>
+                `;
+            } else {
+                content += `
+                    <div class="restriction-note">
+                        ❌ ${data.restriction || 'Not available in your country'}
+                        ${data.details ? `<br><br>${data.details}` : ''}
+                    </div>
+                `;
+            }
+            
+            card.innerHTML = content;
+            return card;
+        }
+
+        function getGatewayData(gateway, country) {
+            // This will be replaced with actual data loading
+            const data = {
+                cenoa: {
+                    name: 'Cenoa',
+                    available: true,
+                    fees: { total: 0.01 }
+                },
+                payoneer: {
+                    name: 'Payoneer',
+                    available: true,
+                    warning: country === 'pakistan' ? 'Fees increased to 3% in September 2024' : 'High fees',
+                    fees: { total: 0.085 }
+                },
+                wise: {
+                    name: 'Wise (TransferWise)',
+                    available: country === 'egypt' ? true : false,
+                    restriction: country === 'pakistan' ? 'New accounts blocked since April 2024' : 
+                                country === 'nigeria' ? 'USD transfers suspended since November 2022' :
+                                country === 'turkey' ? 'Wise doesn\'t work in Turkey' : '',
+                    details: country === 'nigeria' ? 'Only GBP→NGN works, not useful for USD freelancers' : '',
+                    fees: country === 'egypt' ? { total: 0.02 } : null
+                },
+                paypal: {
+                    name: 'PayPal',
+                    available: country === 'turkey' ? true : 'limited',
+                    restriction: country === 'nigeria' ? 'Send-only until late 2026' :
+                                country === 'egypt' ? 'Withdrawal to banks is tricky' :
+                                country === 'pakistan' ? 'Works but with limitations' : '',
+                    fees: country === 'turkey' ? { total: 0.094 } : null
+                },
+                airwallex: {
+                    name: 'Airwallex',
+                    available: false,
+                    restriction: 'Not in eligible countries list',
+                    details: 'Airwallex only supports businesses from specific countries'
+                },
+                worldfirst: {
+                    name: 'WorldFirst',
+                    available: country === 'turkey' ? 'limited' : false,
+                    restriction: country !== 'turkey' ? 'Availability unknown' : 'Limited availability',
+                    fees: country === 'turkey' ? { total: 0.07 } : null
+                },
+                mercury: {
+                    name: 'Mercury',
+                    available: false,
+                    restriction: 'Requires US-registered company',
+                    details: country === 'pakistan' || country === 'nigeria' ? 
+                            'Pakistan/Nigeria in prohibited countries list' : 
+                            'Only available for US companies'
+                }
+            };
+            
+            return data[gateway] || null;
+        }
+
+        function calculateCost(gateway, country, annualEarnings) {
+            const data = getGatewayData(gateway, country);
+            if (!data || !data.fees) return null;
+            return annualEarnings * data.fees.total;
+        }
+    </script>
+</body>
+</html>

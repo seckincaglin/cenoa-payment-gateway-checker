@@ -98,16 +98,7 @@
             font-size: 16px;
             color: #333;
             background: #fafafa;
-            transition: all 0.2s;
-        }
-
-        select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 20px;
-            padding-right: 44px;
+            transition: all 0.3s ease;
         }
 
         select:focus, input:focus {
@@ -123,180 +114,179 @@
             color: white;
             border: none;
             border-radius: 12px;
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s ease;
+            margin-top: 8px;
         }
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
         }
 
-        button.secondary {
-            background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
-            margin-top: 12px;
+        button:active {
+            transform: translateY(0);
         }
 
         .results {
             display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
 
         .results.show {
             display: block;
-            animation: fadeIn 0.4s ease;
+            opacity: 1;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .summary {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            padding: 40px 32px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 40px rgba(255, 107, 107, 0.3);
+        }
+
+        .summary h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            opacity: 0.95;
+        }
+
+        .big-number {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .summary p {
+            font-size: 16px;
+            opacity: 0.9;
         }
 
         .gateway-card {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
             margin-bottom: 16px;
-            border: 2px solid #e8e8e8;
-            position: relative;
+            border-left: 5px solid #ddd;
+            transition: all 0.3s ease;
         }
 
         .gateway-card.available {
-            border-color: #10b981;
-            background: #f0fdf4;
+            border-left-color: #10b981;
         }
 
         .gateway-card.restricted {
-            border-color: #f59e0b;
-            background: #fffbeb;
+            border-left-color: #f59e0b;
         }
 
         .gateway-card.blocked {
-            border-color: #ef4444;
-            background: #fef2f2;
+            border-left-color: #ef4444;
+            opacity: 0.7;
         }
 
         .gateway-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 12px;
+            align-items: center;
+            margin-bottom: 16px;
         }
 
         .gateway-name {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: #1a1a2e;
         }
 
         .status-badge {
-            padding: 4px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
-            text-transform: uppercase;
         }
 
         .status-available {
-            background: #10b981;
-            color: white;
+            background: #d1fae5;
+            color: #065f46;
         }
 
         .status-restricted {
-            background: #f59e0b;
-            color: white;
+            background: #fef3c7;
+            color: #92400e;
         }
 
         .status-blocked {
-            background: #ef4444;
-            color: white;
+            background: #fee2e2;
+            color: #991b1b;
         }
 
         .cost-display {
-            font-size: 32px;
-            font-weight: 700;
-            color: #1a1a2e;
-            margin: 12px 0;
+            font-size: 36px;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 6px;
         }
 
         .cost-breakdown {
-            font-size: 14px;
             color: #666;
-            margin-bottom: 12px;
+            font-size: 14px;
+            margin-bottom: 16px;
         }
 
         .savings {
-            background: #10b981;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 14px 18px;
+            border-radius: 12px;
             font-weight: 600;
-            text-align: center;
+            margin-top: 16px;
+            font-size: 15px;
+        }
+
+        .warning-note, .restriction-note {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.6;
             margin-top: 12px;
         }
 
         .restriction-note {
-            background: rgba(239, 68, 68, 0.1);
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .toggle-features {
+            width: 100%;
             padding: 12px;
-            border-radius: 8px;
+            background: #f3f4f6;
+            color: #374151;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
             font-size: 14px;
-            color: #dc2626;
-            margin-top: 12px;
-        }
-
-        .warning-note {
-            background: rgba(245, 158, 11, 0.1);
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #d97706;
-            margin-top: 12px;
-        }
-
-        .powered-by {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-            color: rgba(255,255,255,0.8);
-        }
-
-        .powered-by a {
-            color: white;
-            text-decoration: none;
             font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: all 0.2s ease;
         }
 
-        .summary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 24px;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            text-align: center;
+        .toggle-features:hover {
+            background: #e5e7eb;
+            transform: none;
+            box-shadow: none;
         }
 
-        .summary h2 {
-            font-size: 24px;
-            margin-bottom: 12px;
-        }
-
-        .summary .big-number {
-            font-size: 48px;
-            font-weight: 700;
-            margin: 16px 0;
-        }
-
-        /* Feature Comparison Table */
         .feature-comparison {
             display: none;
             margin-top: 16px;
-            padding-top: 16px;
-            border-top: 2px solid #e8e8e8;
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 16px;
         }
 
         .feature-comparison.show {
@@ -306,8 +296,9 @@
         .feature-row {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         .feature-row:last-child {
@@ -316,47 +307,95 @@
 
         .feature-label {
             font-size: 14px;
-            color: #666;
-            flex: 1;
+            color: #6b7280;
+            font-weight: 500;
         }
 
         .feature-value {
             font-size: 14px;
             font-weight: 600;
-            color: #1a1a2e;
-            text-align: right;
+            color: #1f2937;
         }
 
         .feature-value.good {
-            color: #10b981;
+            color: #059669;
         }
 
         .feature-value.bad {
-            color: #ef4444;
+            color: #dc2626;
         }
 
-        .toggle-features {
-            background: transparent;
-            color: #667eea;
-            border: 2px solid #667eea;
-            padding: 8px 16px;
-            font-size: 14px;
-            margin-top: 12px;
-        }
-
-        /* Share Card */
-        .share-card {
-            background: white;
-            padding: 24px;
-            border-radius: 16px;
+        .comparison-table-section {
             margin-top: 24px;
+        }
+
+        .comparison-table-section h3 {
+            font-size: 20px;
+            color: #1a1a2e;
+            margin-bottom: 16px;
             text-align: center;
+        }
+
+        .comparison-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .comparison-table th:first-child {
+            min-width: 120px;
+        }
+
+        .comparison-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover {
+            background: #f9fafb;
+        }
+
+        .table-check {
+            color: #059669;
+            font-weight: 700;
+        }
+
+        .table-cross {
+            color: #dc2626;
+            font-weight: 700;
+        }
+
+        .share-card {
+            text-align: center;
+            margin-top: 24px;
         }
 
         .share-card h3 {
             font-size: 20px;
-            margin-bottom: 16px;
-            color: #1a1a2e;
+            margin-bottom: 12px;
         }
 
         .share-buttons {
@@ -368,27 +407,90 @@
         .share-buttons button {
             flex: 1;
             padding: 12px;
+            font-size: 15px;
+        }
+
+        .secondary {
+            background: #f3f4f6 !important;
+            color: #374151 !important;
+        }
+
+        .secondary:hover {
+            background: #e5e7eb !important;
+        }
+
+        .powered-by {
+            text-align: center;
+            color: rgba(255,255,255,0.8);
+            margin-top: 32px;
             font-size: 14px;
+        }
+
+        .powered-by a {
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            transition: border-color 0.3s ease;
+        }
+
+        .powered-by a:hover {
+            border-bottom-color: white;
         }
 
         .copied-toast {
             position: fixed;
-            bottom: 20px;
+            bottom: 30px;
             left: 50%;
-            transform: translateX(-50%);
-            background: #10b981;
+            transform: translateX(-50%) translateY(100px);
+            background: #1f2937;
             color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 14px;
+            padding: 14px 24px;
+            border-radius: 10px;
             font-weight: 600;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: all 0.3s ease;
             z-index: 1000;
         }
 
         .copied-toast.show {
+            transform: translateX(-50%) translateY(0);
             opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            .card {
+                padding: 24px 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .big-number {
+                font-size: 42px;
+            }
+
+            .cost-display {
+                font-size: 28px;
+            }
+
+            .gateway-name {
+                font-size: 18px;
+            }
+
+            .comparison-table {
+                font-size: 11px;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 8px 6px;
+            }
         }
     </style>
 </head>
@@ -396,26 +498,27 @@
     <div class="container">
         <div class="card">
             <div class="logo">
-                <span class="logo-text">💰 Cenoa</span>
+                <div class="logo-text">💰 Gateway Cost Checker</div>
             </div>
-            <h1>Payment Gateway Cost Checker</h1>
-            <p class="subtitle">Find out which gateways work in your country and how much they really cost</p>
-
+            
+            <h1>How Much Are Payment Gateways Costing You?</h1>
+            <p class="subtitle">Freelancers in Pakistan, Egypt, Turkey, and Nigeria: Find out if you're losing thousands to fees</p>
+            
             <form id="checker-form">
                 <div class="form-group">
-                    <label>Your Country</label>
+                    <label for="country">📍 Your Country</label>
                     <select id="country" required>
                         <option value="">Select your country...</option>
                         <option value="pakistan">🇵🇰 Pakistan</option>
-                        <option value="nigeria">🇳🇬 Nigeria</option>
                         <option value="egypt">🇪🇬 Egypt</option>
                         <option value="turkey">🇹🇷 Turkey</option>
+                        <option value="nigeria">🇳🇬 Nigeria</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Monthly USD Earnings</label>
-                    <input type="number" id="earnings" placeholder="e.g., 3000" min="100" step="100" required>
+                    <label for="earnings">💵 Monthly USD Earnings</label>
+                    <input type="number" id="earnings" placeholder="e.g., 3000" required min="1" step="1">
                 </div>
 
                 <button type="submit">Check Gateways & Costs 🔍</button>
@@ -430,6 +533,15 @@
             </div>
 
             <div id="gateway-list"></div>
+
+            <div class="card comparison-table-section" id="comparison-section" style="display: none;">
+                <h3>📊 Full Feature Comparison</h3>
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table" id="comparison-table">
+                        <!-- Table will be generated by JavaScript -->
+                    </table>
+                </div>
+            </div>
 
             <div class="card share-card">
                 <h3>📱 Share Your Results</h3>
@@ -451,6 +563,17 @@
     <script>
         let currentCountry = '';
         let currentEarnings = 0;
+        let gatewayData = null;
+        
+        // Load gateway data
+        fetch('../data/gateway-data.json')
+            .then(response => response.json())
+            .then(data => {
+                gatewayData = data.gateways;
+            })
+            .catch(error => {
+                console.error('Error loading gateway data:', error);
+            });
         
         document.getElementById('checker-form').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -463,6 +586,11 @@
             
             if (!country || !earnings) {
                 alert('Please fill in all fields');
+                return;
+            }
+
+            if (!gatewayData) {
+                alert('Loading data, please try again in a moment');
                 return;
             }
 
@@ -481,24 +609,40 @@
             const gatewayList = document.getElementById('gateway-list');
             gatewayList.innerHTML = '';
             
+            // Calculate loss (comparing typical Payoneer user vs Cenoa)
             const payoneerCost = annualEarnings * 0.085;
-            const cenoaCost = annualEarnings * 0.01;
+            const cenoaCost = annualEarnings * (country === 'turkey' ? 0.015 : 0.0099);
             const loss = payoneerCost - cenoaCost;
             document.getElementById('loss-amount').textContent = `$${Math.round(loss).toLocaleString()}`;
 
             // Update share text
-            const countryName = {pakistan: 'Pakistan', nigeria: 'Nigeria', egypt: 'Egypt', turkey: 'Turkey'}[country];
+            const countryNames = {pakistan: 'Pakistan', nigeria: 'Nigeria', egypt: 'Egypt', turkey: 'Turkey'};
             document.getElementById('share-text').textContent = 
-                `I'm losing $${Math.round(loss).toLocaleString()}/year to payment gateway fees in ${countryName} 😱`;
+                `I'm losing $${Math.round(loss).toLocaleString()}/year to payment gateway fees in ${countryNames[country]} 😱`;
             
+            // Display gateway cards
+            let availableGatewaysWithFeatures = [];
             gateways.forEach(gateway => {
                 const card = createGatewayCard(gateway, country, annualEarnings);
-                if (card) gatewayList.appendChild(card);
+                if (card) {
+                    gatewayList.appendChild(card);
+                    const data = gatewayData[gateway]?.countries[country];
+                    if (data && data.available === true && data.features) {
+                        availableGatewaysWithFeatures.push(gateway);
+                    }
+                }
             });
+
+            // Show comparison table if there are multiple gateways with features
+            if (availableGatewaysWithFeatures.length >= 2) {
+                displayComparisonTable(availableGatewaysWithFeatures, country);
+            } else {
+                document.getElementById('comparison-section').style.display = 'none';
+            }
         }
 
         function createGatewayCard(gateway, country, annualEarnings) {
-            const data = getGatewayData(gateway, country);
+            const data = gatewayData[gateway]?.countries[country];
             if (!data) return null;
             
             const card = document.createElement('div');
@@ -523,7 +667,7 @@
             
             let content = `
                 <div class="gateway-header">
-                    <div class="gateway-name">${data.name}</div>
+                    <div class="gateway-name">${gatewayData[gateway].name}</div>
                     ${statusBadge}
                 </div>
             `;
@@ -540,7 +684,7 @@
                 `;
                 
                 if (gateway !== 'cenoa') {
-                    const cenoaCost = annualEarnings * 0.01;
+                    const cenoaCost = annualEarnings * (country === 'turkey' ? 0.015 : 0.0099);
                     const savings = annualCost - cenoaCost;
                     if (savings > 0) {
                         content += `
@@ -551,9 +695,16 @@
                     }
                 }
                 
-                // Add features if available (for Turkey + Cenoa/Payoneer)
-                if (country === 'turkey' && (gateway === 'cenoa' || gateway === 'payoneer') && data.features) {
+                // Add individual features toggle if available
+                if (data.features) {
                     const featuresId = `features-${gateway}`;
+                    const localSupportLabel = {
+                        pakistan: 'Local support',
+                        nigeria: 'Local support',
+                        egypt: 'Local support',
+                        turkey: '🇹🇷 Turkish support'
+                    }[country] || 'Local support';
+
                     content += `
                         <button class="toggle-features" onclick="toggleFeatures('${featuresId}')">
                             📊 View Features
@@ -570,7 +721,7 @@
                                 </span>
                             </div>
                             <div class="feature-row">
-                                <span class="feature-label">🇹🇷 Turkish support</span>
+                                <span class="feature-label">${localSupportLabel}</span>
                                 <span class="feature-value ${data.features.localSupport ? 'good' : 'bad'}">
                                     ${data.features.localSupport ? '✓ Yes' : '✗ No'}
                                 </span>
@@ -603,7 +754,7 @@
             } else if (data.available === 'limited') {
                 content += `
                     <div class="warning-note">
-                        ⚠️ ${data.restriction || 'Limited availability'}
+                        ⚠️ ${data.restriction || data.warning || 'Limited availability'}
                         ${data.details ? `<br><br>${data.details}` : ''}
                     </div>
                 `;
@@ -618,6 +769,59 @@
             
             card.innerHTML = content;
             return card;
+        }
+
+        function displayComparisonTable(gateways, country) {
+            const table = document.getElementById('comparison-table');
+            const section = document.getElementById('comparison-section');
+            
+            let html = `
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        ${gateways.map(g => `<th>${gatewayData[g].name}</th>`).join('')}
+                    </tr>
+                </thead>
+                <tbody>
+            `;
+
+            const features = [
+                { key: 'accountOpeningTime', label: '⚡ Account Opening' },
+                { key: 'cryptoWithdrawal', label: '🔐 Crypto Withdrawal', type: 'boolean' },
+                { key: 'cryptoDeposit', label: '💳 Crypto Deposit', type: 'boolean' },
+                { key: 'individualAccounts', label: '👤 Individual Accounts', type: 'boolean' },
+                { key: 'localSupport', label: '🗣️ Local Support', type: 'boolean' },
+                { key: 'supportResponseTime', label: '💬 Support Speed' },
+                { key: 'paymentFromIndividuals', label: '👥 From Individuals', type: 'boolean' },
+                { key: 'paymentFromCompanies', label: '🏢 From Companies', type: 'boolean' },
+                { key: 'accountFreezingRisk', label: '🔒 Freeze Risk', type: 'boolean', inverse: true },
+                { key: 'documentsNeeded', label: '📄 Documents' },
+                { key: 'country', label: '📍 Registered In' }
+            ];
+
+            features.forEach(feature => {
+                html += `<tr><td><strong>${feature.label}</strong></td>`;
+                gateways.forEach(gateway => {
+                    const data = gatewayData[gateway]?.countries[country];
+                    const value = data?.features?.[feature.key];
+                    let displayValue = value ?? '-';
+                    
+                    if (feature.type === 'boolean') {
+                        if (feature.inverse) {
+                            displayValue = value ? '<span class="table-cross">✗ Yes</span>' : '<span class="table-check">✓ No</span>';
+                        } else {
+                            displayValue = value ? '<span class="table-check">✓ Yes</span>' : '<span class="table-cross">✗ No</span>';
+                        }
+                    }
+                    
+                    html += `<td>${displayValue}</td>`;
+                });
+                html += `</tr>`;
+            });
+
+            html += `</tbody>`;
+            table.innerHTML = html;
+            section.style.display = 'block';
         }
 
         function toggleFeatures(id) {
@@ -644,79 +848,6 @@
             const toast = document.getElementById('toast');
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 2000);
-        }
-
-        function getGatewayData(gateway, country) {
-            const data = {
-                cenoa: {
-                    name: 'Cenoa',
-                    available: true,
-                    fees: { total: 0.01 },
-                    features: country === 'turkey' ? {
-                        accountOpeningTime: '3 minutes',
-                        cryptoWithdrawal: true,
-                        localSupport: true,
-                        supportResponseTime: '<1 minute',
-                        accountFreezingRisk: false,
-                        country: '🇹🇷 Turkey'
-                    } : null
-                },
-                payoneer: {
-                    name: 'Payoneer',
-                    available: true,
-                    warning: country === 'pakistan' ? 'Fees increased to 3% in September 2024' : 'High fees',
-                    fees: { total: 0.085 },
-                    features: country === 'turkey' ? {
-                        accountOpeningTime: '1-3 days',
-                        cryptoWithdrawal: false,
-                        localSupport: false,
-                        supportResponseTime: '~30 minutes',
-                        accountFreezingRisk: true,
-                        country: '🇮🇱 Israel'
-                    } : null
-                },
-                wise: {
-                    name: 'Wise (TransferWise)',
-                    available: country === 'egypt' ? 'limited' : false,
-                    restriction: country === 'pakistan' ? 'New accounts blocked since April 2024' : 
-                                country === 'nigeria' ? 'USD transfers suspended since November 2022' :
-                                country === 'turkey' ? 'Wise doesn\'t work in Turkey' : 
-                                country === 'egypt' ? 'Slow withdrawals to Egyptian banks' : '',
-                    details: country === 'nigeria' ? 'Only GBP→NGN works, not useful for USD freelancers' : 
-                            country === 'egypt' ? 'Can take several business days' : '',
-                    fees: country === 'egypt' ? { total: 0.02 } : null
-                },
-                paypal: {
-                    name: 'PayPal',
-                    available: country === 'turkey' ? true : 'limited',
-                    restriction: country === 'nigeria' ? 'Send-only until late 2026' :
-                                country === 'egypt' ? 'Withdrawal to banks is tricky' :
-                                country === 'pakistan' ? 'Works but with limitations' : '',
-                    fees: country === 'turkey' ? { total: 0.094 } : null
-                },
-                airwallex: {
-                    name: 'Airwallex',
-                    available: false,
-                    restriction: 'Not in eligible countries list',
-                    details: 'Airwallex only supports businesses from specific countries'
-                },
-                worldfirst: {
-                    name: 'WorldFirst',
-                    available: country === 'turkey' ? 'limited' : false,
-                    restriction: country !== 'turkey' ? 'Availability unknown' : 'Limited availability',
-                    fees: country === 'turkey' ? { total: 0.07 } : null
-                },
-                mercury: {
-                    name: 'Mercury',
-                    available: false,
-                    restriction: 'Requires US-registered company',
-                    details: country === 'pakistan' || country === 'nigeria' ? 
-                            'Pakistan/Nigeria in prohibited countries list' : 
-                            'Only available for US companies'
-                }
-            };
-            
-            return data[gateway] || null;
         }
     </script>
 </body>

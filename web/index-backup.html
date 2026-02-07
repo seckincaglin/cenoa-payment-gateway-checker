@@ -3,26 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
-    <title>Payment Gateway Cost Checker | Compare Payoneer, Wise, Cenoa Fees</title>
-    <meta name="description" content="Find out which payment gateways work in Pakistan, Egypt, Turkey, Nigeria and how much they really cost. Compare Payoneer, Wise, PayPal fees instantly.">
-    <meta name="keywords" content="payoneer fees, wise pakistan, payment gateway nigeria, freelance payment egypt, cenoa, payoneer alternative turkey">
-    
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="Payment Gateway Cost Checker | Find Out if You're Losing Money">
-    <meta property="og:description" content="Pakistani freelancers lose $2,700/year to Payoneer fees. Find out how much you're losing.">
-    <meta property="og:image" content="https://payment-gateway-checker.vercel.app/og-image.png">
-    <meta property="og:type" content="website">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Payment Gateway Cost Checker">
-    <meta name="twitter:description" content="Find out which payment gateways work in your country and how much they cost">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💰</text></svg>">
-    
+    <title>Payment Gateway Cost Checker | Cenoa</title>
     <style>
         * {
             margin: 0;
@@ -134,13 +115,6 @@
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
         }
 
-        button.secondary {
-            background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
-            margin-top: 12px;
-        }
-
         .results {
             display: none;
         }
@@ -161,7 +135,6 @@
             padding: 20px;
             margin-bottom: 16px;
             border: 2px solid #e8e8e8;
-            position: relative;
         }
 
         .gateway-card.available {
@@ -262,11 +235,11 @@
             text-align: center;
             margin-top: 20px;
             font-size: 12px;
-            color: rgba(255,255,255,0.8);
+            color: #999;
         }
 
         .powered-by a {
-            color: white;
+            color: #667eea;
             text-decoration: none;
             font-weight: 600;
         }
@@ -289,106 +262,6 @@
             font-size: 48px;
             font-weight: 700;
             margin: 16px 0;
-        }
-
-        /* Feature Comparison Table */
-        .feature-comparison {
-            display: none;
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 2px solid #e8e8e8;
-        }
-
-        .feature-comparison.show {
-            display: block;
-        }
-
-        .feature-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .feature-row:last-child {
-            border-bottom: none;
-        }
-
-        .feature-label {
-            font-size: 14px;
-            color: #666;
-            flex: 1;
-        }
-
-        .feature-value {
-            font-size: 14px;
-            font-weight: 600;
-            color: #1a1a2e;
-            text-align: right;
-        }
-
-        .feature-value.good {
-            color: #10b981;
-        }
-
-        .feature-value.bad {
-            color: #ef4444;
-        }
-
-        .toggle-features {
-            background: transparent;
-            color: #667eea;
-            border: 2px solid #667eea;
-            padding: 8px 16px;
-            font-size: 14px;
-            margin-top: 12px;
-        }
-
-        /* Share Card */
-        .share-card {
-            background: white;
-            padding: 24px;
-            border-radius: 16px;
-            margin-top: 24px;
-            text-align: center;
-        }
-
-        .share-card h3 {
-            font-size: 20px;
-            margin-bottom: 16px;
-            color: #1a1a2e;
-        }
-
-        .share-buttons {
-            display: flex;
-            gap: 12px;
-            margin-top: 16px;
-        }
-
-        .share-buttons button {
-            flex: 1;
-            padding: 12px;
-            font-size: 14px;
-        }
-
-        .copied-toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #10b981;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 600;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 1000;
-        }
-
-        .copied-toast.show {
-            opacity: 1;
         }
     </style>
 </head>
@@ -430,15 +303,6 @@
             </div>
 
             <div id="gateway-list"></div>
-
-            <div class="card share-card">
-                <h3>📱 Share Your Results</h3>
-                <p id="share-text" style="color: #666; font-size: 14px; margin-bottom: 12px;"></p>
-                <div class="share-buttons">
-                    <button onclick="copyResults()" class="secondary">📋 Copy</button>
-                    <button onclick="shareTwitter()" class="secondary">𝕏 Tweet</button>
-                </div>
-            </div>
         </div>
 
         <div class="powered-by">
@@ -446,11 +310,9 @@
         </div>
     </div>
 
-    <div class="copied-toast" id="toast">Copied to clipboard! ✓</div>
-
     <script>
-        let currentCountry = '';
-        let currentEarnings = 0;
+        // Gateway data will be loaded here
+        const gatewayData = null; // Will be populated from JSON file
         
         document.getElementById('checker-form').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -466,35 +328,49 @@
                 return;
             }
 
-            currentCountry = country;
-            currentEarnings = earnings;
-
+            // Show results
             document.getElementById('results').classList.add('show');
+            
+            // Calculate and display
             displayResults(country, earnings);
+            
+            // Scroll to results
             document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function displayResults(country, monthlyEarnings) {
             const annualEarnings = monthlyEarnings * 12;
+            
+            // Gateway order: Cenoa first, then available, then restricted, then blocked
             const gateways = ['cenoa', 'payoneer', 'wise', 'paypal', 'airwallex', 'worldfirst', 'mercury'];
             
             const gatewayList = document.getElementById('gateway-list');
             gatewayList.innerHTML = '';
             
-            const payoneerCost = annualEarnings * 0.085;
-            const cenoaCost = annualEarnings * 0.01;
-            const loss = payoneerCost - cenoaCost;
-            document.getElementById('loss-amount').textContent = `$${Math.round(loss).toLocaleString()}`;
-
-            // Update share text
-            const countryName = {pakistan: 'Pakistan', nigeria: 'Nigeria', egypt: 'Egypt', turkey: 'Turkey'}[country];
-            document.getElementById('share-text').textContent = 
-                `I'm losing $${Math.round(loss).toLocaleString()}/year to payment gateway fees in ${countryName} 😱`;
+            let minCost = Infinity;
+            let cenoaCost = 0;
             
             gateways.forEach(gateway => {
                 const card = createGatewayCard(gateway, country, annualEarnings);
-                if (card) gatewayList.appendChild(card);
+                if (card) {
+                    gatewayList.appendChild(card);
+                    
+                    // Track costs for summary
+                    const cost = calculateCost(gateway, country, annualEarnings);
+                    if (cost !== null && cost < minCost) {
+                        minCost = cost;
+                    }
+                    if (gateway === 'cenoa') {
+                        cenoaCost = cost;
+                    }
+                }
             });
+            
+            // Update loss amount
+            // For now, show approximate loss with Payoneer
+            const payoneerCost = annualEarnings * 0.085;
+            const loss = payoneerCost - cenoaCost;
+            document.getElementById('loss-amount').textContent = `$${Math.round(loss).toLocaleString()}`;
         }
 
         function createGatewayCard(gateway, country, annualEarnings) {
@@ -551,48 +427,6 @@
                     }
                 }
                 
-                // Add features if available (for Turkey + Cenoa/Payoneer)
-                if (country === 'turkey' && (gateway === 'cenoa' || gateway === 'payoneer') && data.features) {
-                    const featuresId = `features-${gateway}`;
-                    content += `
-                        <button class="toggle-features" onclick="toggleFeatures('${featuresId}')">
-                            📊 View Features
-                        </button>
-                        <div class="feature-comparison" id="${featuresId}">
-                            <div class="feature-row">
-                                <span class="feature-label">⚡ Account opening</span>
-                                <span class="feature-value">${data.features.accountOpeningTime}</span>
-                            </div>
-                            <div class="feature-row">
-                                <span class="feature-label">🔐 Crypto support</span>
-                                <span class="feature-value ${data.features.cryptoWithdrawal ? 'good' : 'bad'}">
-                                    ${data.features.cryptoWithdrawal ? '✓ Yes' : '✗ No'}
-                                </span>
-                            </div>
-                            <div class="feature-row">
-                                <span class="feature-label">🇹🇷 Turkish support</span>
-                                <span class="feature-value ${data.features.localSupport ? 'good' : 'bad'}">
-                                    ${data.features.localSupport ? '✓ Yes' : '✗ No'}
-                                </span>
-                            </div>
-                            <div class="feature-row">
-                                <span class="feature-label">💬 Support response</span>
-                                <span class="feature-value">${data.features.supportResponseTime}</span>
-                            </div>
-                            <div class="feature-row">
-                                <span class="feature-label">🔒 Account freeze risk</span>
-                                <span class="feature-value ${data.features.accountFreezingRisk ? 'bad' : 'good'}">
-                                    ${data.features.accountFreezingRisk ? '⚠️ Yes' : '✓ No risk'}
-                                </span>
-                            </div>
-                            <div class="feature-row">
-                                <span class="feature-label">📍 Company location</span>
-                                <span class="feature-value">${data.features.country}</span>
-                            </div>
-                        </div>
-                    `;
-                }
-                
                 if (data.warning) {
                     content += `
                         <div class="warning-note">
@@ -620,70 +454,27 @@
             return card;
         }
 
-        function toggleFeatures(id) {
-            const el = document.getElementById(id);
-            el.classList.toggle('show');
-        }
-
-        function copyResults() {
-            const text = document.getElementById('share-text').textContent + 
-                `\n\nCheck yours: https://payment-gateway-checker.vercel.app`;
-            navigator.clipboard.writeText(text).then(() => {
-                showToast();
-            });
-        }
-
-        function shareTwitter() {
-            const text = document.getElementById('share-text').textContent + 
-                `\n\nCheck yours: https://payment-gateway-checker.vercel.app`;
-            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-            window.open(url, '_blank', 'width=550,height=420');
-        }
-
-        function showToast() {
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2000);
-        }
-
         function getGatewayData(gateway, country) {
+            // This will be replaced with actual data loading
             const data = {
                 cenoa: {
                     name: 'Cenoa',
                     available: true,
-                    fees: { total: 0.01 },
-                    features: country === 'turkey' ? {
-                        accountOpeningTime: '3 minutes',
-                        cryptoWithdrawal: true,
-                        localSupport: true,
-                        supportResponseTime: '<1 minute',
-                        accountFreezingRisk: false,
-                        country: '🇹🇷 Turkey'
-                    } : null
+                    fees: { total: 0.01 }
                 },
                 payoneer: {
                     name: 'Payoneer',
                     available: true,
                     warning: country === 'pakistan' ? 'Fees increased to 3% in September 2024' : 'High fees',
-                    fees: { total: 0.085 },
-                    features: country === 'turkey' ? {
-                        accountOpeningTime: '1-3 days',
-                        cryptoWithdrawal: false,
-                        localSupport: false,
-                        supportResponseTime: '~30 minutes',
-                        accountFreezingRisk: true,
-                        country: '🇮🇱 Israel'
-                    } : null
+                    fees: { total: 0.085 }
                 },
                 wise: {
                     name: 'Wise (TransferWise)',
-                    available: country === 'egypt' ? 'limited' : false,
+                    available: country === 'egypt' ? true : false,
                     restriction: country === 'pakistan' ? 'New accounts blocked since April 2024' : 
                                 country === 'nigeria' ? 'USD transfers suspended since November 2022' :
-                                country === 'turkey' ? 'Wise doesn\'t work in Turkey' : 
-                                country === 'egypt' ? 'Slow withdrawals to Egyptian banks' : '',
-                    details: country === 'nigeria' ? 'Only GBP→NGN works, not useful for USD freelancers' : 
-                            country === 'egypt' ? 'Can take several business days' : '',
+                                country === 'turkey' ? 'Wise doesn\'t work in Turkey' : '',
+                    details: country === 'nigeria' ? 'Only GBP→NGN works, not useful for USD freelancers' : '',
                     fees: country === 'egypt' ? { total: 0.02 } : null
                 },
                 paypal: {
@@ -717,6 +508,12 @@
             };
             
             return data[gateway] || null;
+        }
+
+        function calculateCost(gateway, country, annualEarnings) {
+            const data = getGatewayData(gateway, country);
+            if (!data || !data.fees) return null;
+            return annualEarnings * data.fees.total;
         }
     </script>
 </body>
